@@ -10,9 +10,9 @@
 
 ### Getting started
 
-Ask for interactive session (let's ask for a bit more CPUs this round):
+Ask for interactive session (let's ask for a bit more CPUs and memory this round):
 
-    srun --nodes=1 --tasks=16 --mem=8g --time 24:00:00 --job-name "interactive_small" --pty /bin/bash
+    srun --nodes=1 --tasks=16 --mem=96g --time 24:00:00 --job-name "interactive_small" --pty /bin/bash
 
 Make sure you have `pggb` and its tools loaded:
 
@@ -21,20 +21,20 @@ Make sure you have `pggb` and its tools loaded:
 If you want to build everything on your laptop, follow the instructions at the [pggb homepage](https://github.com/pangenome/pggb#installation).
 So make sure you have checked out `pggb` repository (we need data there):
 
-    cd /cbio/projects/031/$USER
+    cd /cbio/projects/037/$USER
 	git clone https://github.com/pangenome/pggb.git
 
 Check out also `wfmash` repository (we need one of its scrips):
 
-    cd /cbio/projects/031/$USER
+    cd /cbio/projects/037/$USER
     git clone https://github.com/waveygang/wfmash.git
 
 Now create a directory to work on for this tutorial:
 
-    cd /cbio/projects/031/$USER
+    cd /cbio/projects/037/$USER
 	mkdir align_based_pan_graph_building_small
 	cd align_based_pan_graph_building_small
-	ln -s /cbio/projects/031/$USER/pggb/data
+	ln -s /cbio/projects/037/$USER/pggb/data
 
 ### Building HLA pangenome graphs
 
@@ -42,9 +42,9 @@ The [human leukocyte antigen (HLA)](https://en.wikipedia.org/wiki/Human_leukocyt
 
 Let's build a pangenome graph from a collection of sequences of the DRB1-3123 gene:
 
-    DIR_BASE=/cbio/projects/031/$USER
+    DIR_BASE=/cbio/projects/037/$USER
     cd $DIR_BASE/align_based_pan_graph_building_small
-    pggb -i $DIR_BASE/pggb/data/HLA/DRB1-3123.fa.gz -o $DIR_BASE/align_based_pan_graph_building_small/out_DRB1_3123.1 -n 12
+    pggb -t 16 -i $DIR_BASE/pggb/data/HLA/DRB1-3123.fa.gz -o $DIR_BASE/align_based_pan_graph_building_small/out_DRB1_3123.1 -n 12
 
 Why did we specify `-n 12`?
 
@@ -57,7 +57,7 @@ It is used to determine the right partial order alignment (POA) problem size for
 
 How many pairwise alignments were used to build the graph (take a look at the `PAF` output)? Visualize the alignments:
 
-    DIR_BASE=/cbio/projects/031/$USER
+    DIR_BASE=/cbio/projects/037/$USER
     cd $DIR_BASE/align_based_pan_graph_building_small/out_DRB1_3123.1
 
     module add gnuplot
@@ -67,7 +67,7 @@ The last command will generate a `out.png` file with a visualization of the alig
 To download the image, run **locally on your computer**:
 
     USER="PUT HERE YOUR USER NAME ON ILIFU"
-    scp $USER@slurm.ilifu.ac.za:/cbio/projects/031/$USER/align_based_pan_graph_building_small/out_DRB1_3123.1/out.png ~/Desktop
+    scp $USER@slurm.ilifu.ac.za:/cbio/projects/037/$USER/align_based_pan_graph_building_small/out_DRB1_3123.1/out.png ~/Desktop
 
 ![out_DRB1_3123.1 alignment](images/out.png)
 
@@ -120,7 +120,7 @@ Try to visualize the graph also with `Bandage`.
 
 Use `odgi stats` to obtain the graph length, and the number of nodes, edges, and paths:
 
-    DIR_BASE=/cbio/projects/031/$USER
+    DIR_BASE=/cbio/projects/037/$USER
     cd $DIR_BASE/align_based_pan_graph_building_small
     odgi stats -i out_DRB1_3123.1/DRB1-3123.fa.gz.bf3285f.eb0f3d3.9c6ea4f.smooth.final.og -S
 
@@ -139,9 +139,9 @@ Pangenome graphs longer than the input sequences are expected because they conta
 `pggb`'s default parameters assume an average divergence of approximately 10% (`-p 90` by default).
 Try building the same pangenome graph by specifying a higher percent identity
 
-    DIR_BASE=/cbio/projects/031/$USER
+    DIR_BASE=/cbio/projects/037/$USER
     cd $DIR_BASE/align_based_pan_graph_building_small
-    pggb -i $DIR_BASE/pggb/data/HLA/DRB1-3123.fa.gz -o $DIR_BASE/align_based_pan_graph_building_small/out_DRB1_3123.2 -n 12 -p 95
+    pggb -t 16 -i $DIR_BASE/pggb/data/HLA/DRB1-3123.fa.gz -o $DIR_BASE/align_based_pan_graph_building_small/out_DRB1_3123.2 -n 12 -p 95
 
 Check the graph statistics.
 Does this pangenome graph represent better or worse the input sequences than the previously produced graph?
@@ -156,10 +156,10 @@ This happens because the HLA locus is highly polymorphic in the population, with
 
 Try to increase and decrease the segment length (`-s 5000` by default):
 
-    DIR_BASE=/cbio/projects/031/$USER
+    DIR_BASE=/cbio/projects/037/$USER
     cd $DIR_BASE/align_based_pan_graph_building_small
-    pggb -i $DIR_BASE/pggb/data/HLA/DRB1-3123.fa.gz -o $DIR_BASE/align_based_pan_graph_building_small/out_DRB1_3123.3 -n 12 -s 15000
-    pggb -i $DIR_BASE/pggb/data/HLA/DRB1-3123.fa.gz -o $DIR_BASE/align_based_pan_graph_building_small/out_DRB1_3123.4 -n 12 -s 100
+    pggb -t 16 -i $DIR_BASE/pggb/data/HLA/DRB1-3123.fa.gz -o $DIR_BASE/align_based_pan_graph_building_small/out_DRB1_3123.3 -n 12 -s 15000
+    pggb -t 16 -i $DIR_BASE/pggb/data/HLA/DRB1-3123.fa.gz -o $DIR_BASE/align_based_pan_graph_building_small/out_DRB1_3123.4 -n 12 -s 100
 
 How is this affecting graph statistics?
 
@@ -175,12 +175,21 @@ Higher values reduce sensitivity, but lead to simpler graphs.
 
 Choose another HLA gene from the `data` folder (`A-3105.fa.gz` for example) and explore how the statistics of the resulting graph change as` s` and `p` change.
 
+### Troubleshooting poor performance
+
+`pggb` uses several disk-backed steps that can stall on networked filesystems.
+The jobs we're running here should finish very quickly.
+If you notice one stalling or taking a very long time (several minutes), it may be due to problems quickly reading and writing to disk.
+Should this happen, use the RAM-backed filesystem available at `/dev/shm` for temporary files.
+This is straightforward to do by setting the `-D` flag: `pggb -D /dev/shm ...`.
+
 ### Building LPA pangenome graphs
 
 [Lipoprotein(a) (LPA)](https://en.wikipedia.org/wiki/Lipoprotein(a)) is a low-density lipoprotein variant containing a protein called apolipoprotein(a).
 Genetic and epidemiological studies have identified lipoprotein(a) as a risk factor for atherosclerosis and related diseases, such as coronary heart disease and stroke.
 
 Try to make LPA pangenome graphs.
+(Make sure to use `-t 16 -D /dev/shm` for good performance.)
 The input sequences are in `data/LPA/LPA.fa.gz`.
 Sequences in this locus have a peculiarity: which one?
 Hint: visualize the alignments and take a look at the graph layout with `Bandage` and/or in the `*.draw_multiqc.png` files.

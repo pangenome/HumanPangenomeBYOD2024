@@ -12,7 +12,7 @@
 
 Ask for interactive session
 
-    srun --nodes=1 --tasks=2 --mem=4g --time 24:00:00 --job-name "interactive_small" --pty /bin/bash
+    srun --nodes=1 --tasks=2 --mem=8g --time 24:00:00 --job-name "interactive_small" --pty /bin/bash
 
 Make sure you have `vg` loaded (it is inside `pggb` tools)
 
