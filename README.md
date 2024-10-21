@@ -1,7 +1,7 @@
 # Reference Graph Pangenome Data Analysis Hackathon 2023
 
-Material for the **Reference Graph Pangenome Data Analysis Hackathon 2023**, November 13-17 in Cape Town, South Africa.
-The event was sponsored by [H3ABioNet](https://www.h3abionet.org/).
+Material for the **Human Pangenome Bring Your Own Data (BYOD) analysis Workshop 2024**, October 21-25 in Cape Town, South Africa.
+The event was sponsored by [eLwazi](https://elwazi.org/)
 
 ## Table of Contents
 
@@ -21,3 +21,4 @@ The event was sponsored by [H3ABioNet](https://www.h3abionet.org/).
   * [Annotation injection](04_UnderstandingPangenomeGraphs.md#annotation-injection)
 * [Short read mapping and variant calling](05_ShortReadMappingVariantCalling.md)
 * [Hacking with our data](06_HackingWithOurData.md)
+* [Haplotype deconvolution](07_PangenomeBasedHaplotypeDevoncolution.md)
