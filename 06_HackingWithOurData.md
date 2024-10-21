@@ -1,10 +1,10 @@
-# Reference Graph Pangenome Data Analysis Hackathon 2023
+# Human Pangenome Bring Your Own Data (BYOD) analysis Workshop 2024
 
 ## Understanding H3ABioNet pangenome graphs
 
 ### Chromosome 6 pangenome graph with 14 haplotypes
 
-You can find the `pggb` graphs for all chromosomes here: `/cbio/projects/031/andreaguarracino/6samples`.
+You can find the `pggb` graphs for all chromosomes here: `/cbio/projects/031/erikg/6samples`.
 Each graph was made with 6 diploid samples (so 12 haplotypes) plus 2 reference genomes (`GRCh38` and `CHM13`).
 
 We extract the MHC locus and color bars by haplotype.
@@ -72,7 +72,7 @@ FPV0R#1#h1tg000005l  546533  <338912<338910  C    CT   60    .       AC=4;AF=0.3
 
 ### Chromosome 6 pangenome graph with 46 haplotypes
 
-You can find the `pggb` graphs for all chromosomes here: `/cbio/projects/031/andreaguarracino/`.
+You can find the `pggb` graphs for all chromosomes here: `/cbio/projects/037/erikg/6samples`.
 Each graph was made with 6 Baylor diploid samples (12 haplotypes) plus 16 HPRC (32 haplotypes) samples plus 2 reference genomes (`GRCh38` and `CHM13`).
 We extract the MHC locus and color bars by haplotype.
 
