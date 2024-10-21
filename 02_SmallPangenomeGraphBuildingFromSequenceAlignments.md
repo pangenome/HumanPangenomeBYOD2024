@@ -1,4 +1,4 @@
-# Reference Graph Pangenome Data Analysis Hackathon 2023
+# Human Pangenome Bring Your Own Data (BYOD) analysis Workshop 2024
 
 ## Small pangenome graph building from sequence alignments
 

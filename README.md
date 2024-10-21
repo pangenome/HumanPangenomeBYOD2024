@@ -1,4 +1,4 @@
-# Reference Graph Pangenome Data Analysis Hackathon 2023
+# Human Pangenome Bring Your Own Data (BYOD) analysis Workshop 2024
 
 Material for the **Human Pangenome Bring Your Own Data (BYOD) analysis Workshop 2024**, October 21-25 in Cape Town, South Africa.
 The event was sponsored by [eLwazi](https://elwazi.org/)
