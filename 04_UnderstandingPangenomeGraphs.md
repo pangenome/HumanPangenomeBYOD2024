@@ -129,10 +129,7 @@ Find C4 coordinates:
     zgrep 'C4A\|C4B' gencode.v47.basic.annotation.gff3.gz |
         awk '$1 == "chr6" && $3 == "gene"' |
         grep gene_type=protein |
-        awk -F'\t' '{split($9,a,";"); for(i in a) if(a[i]~/gene_name/) {split(a[i],b,"="); name=b[2]} print $1"\t"$4"\t"$5"\t"name}' | bedtools merge -d 15000
-        zgrep 'gene_id "C4A"\|gene_id "C4B"' hg38.ncbiRefSeq.gtf.gz |
-      awk '$1 == "chr6"' | cut -f 1,4,5 |
-      bedtools sort | bedtools merge -d 15000 | bedtools slop -l 10000 -r 20000 -g hg38.chrom.sizes |
+        awk -F'\t' '{split($9,a,";"); for(i in a) if(a[i]~/gene_name/) {split(a[i],b,"="); name=b[2]} print $1"\t"$4"\t"$5"\t"name}' | bedtools merge -d 15000 |
       sed 's/chr6/grch38#chr6/g' > hg38.ncbiRefSeq.C4.coordinates.bed
 
 Let's break this down.
