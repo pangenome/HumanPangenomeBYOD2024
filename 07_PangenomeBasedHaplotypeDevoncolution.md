@@ -64,6 +64,7 @@ gunzip chr6.pan.fa.a2fb268.4030258.6a1ecc2.smooth.gfa.gz
 module load pggb
 
 odgi paths -i chr6.pan.fa.a2fb268.4030258.6a1ecc2.smooth.gfa -f -t 16 -P > chr6.pan.fa
+samtools faidx chr6.pan.fa
 
 cd ..
 ```
