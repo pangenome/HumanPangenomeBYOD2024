@@ -125,14 +125,18 @@ Find C4 coordinates:
     cd $DIR_BASE/understanding_pan_graphs
 
     wget http://hgdownload.soe.ucsc.edu/goldenPath/hg38/bigZips/hg38.chrom.sizes
-    wget https://hgdownload.soe.ucsc.edu/goldenPath/hg38/bigZips/genes/hg38.ncbiRefSeq.gtf.gz
-    zgrep 'gene_id "C4A"\|gene_id "C4B"' hg38.ncbiRefSeq.gtf.gz |
+    wget https://ftp.ebi.ac.uk/pub/databases/gencode/Gencode_human/release_47/gencode.v47.basic.annotation.gff3.gz
+    zgrep 'C4A\|C4B' gencode.v47.basic.annotation.gff3.gz |
+        awk '$1 == "chr6" && $3 == "gene"' |
+        grep gene_type=protein |
+        awk -F'\t' '{split($9,a,";"); for(i in a) if(a[i]~/gene_name/) {split(a[i],b,"="); name=b[2]} print $1"\t"$4"\t"$5"\t"name}' | bedtools merge -d 15000
+        zgrep 'gene_id "C4A"\|gene_id "C4B"' hg38.ncbiRefSeq.gtf.gz |
       awk '$1 == "chr6"' | cut -f 1,4,5 |
       bedtools sort | bedtools merge -d 15000 | bedtools slop -l 10000 -r 20000 -g hg38.chrom.sizes |
       sed 's/chr6/grch38#chr6/g' > hg38.ncbiRefSeq.C4.coordinates.bed
 
 Let's break this down.
-First, we got hg38 (GRCh38) genome annotations in GTF format from UCSC.
+First, we got Gecode hg38 (GRCh38) genome annotations in GFF3 format from UCSC.
 We then apply some command line filters to pick up the records for genes C4A and C4B, then generate a BED file (`cut -f 1,4,5`), and sort this.
 Finally, we merge annotations that are within 15kbp (`bedtools merge -b 15000`) of each other, so that our target region is as contiguous as possible.
 If you repeat this process for a different locus or set of genes, it is very likely you'll need to tweak this distance and possibly modify the way you extract the coordinates from the GTF.
