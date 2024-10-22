@@ -274,3 +274,14 @@ Plot the new results:
 ![C4 untangle](images/c4.gggenes.flip.png)
 
 What is changed?
+
+### Getting a VCF
+
+It can be helpful to extract a VCF representing variation.
+`vg` uses the "snarl decomposition" to find bubbles in the graph and convert these to a VCF file.
+For this process to work, you'll want to have your paths named using PanSN format, and to pick an appropriate reference sequence.
+You can try multiple reference sequences to see how the representation changes.
+
+    vg deconstruct -P chm13 -H "#" -e -a -t 16 chr6.c4.gfa >chr6.c4.chm13.vcf
+
+When working with large graphs, you should set the `TEMPDIR` environmental variable to a suitable directory such as a local SSD or ramdisk like `/dev/shm` (assuming you have enough memory).
