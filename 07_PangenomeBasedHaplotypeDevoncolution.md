@@ -61,6 +61,8 @@ wget https://s3-us-west-2.amazonaws.com/human-pangenomics/pangenomes/scratch/202
 gunzip chr6.pan.fa.a2fb268.4030258.6a1ecc2.smooth.gfa.gz
 
 # GFA -> FASTA
+module load pggb
+
 odgi paths -i chr6.pan.fa.a2fb268.4030258.6a1ecc2.smooth.gfa -f -t 16 -P > chr6.pan.fa
 
 cd ..
