@@ -15,6 +15,7 @@ cd haplotype_deconvolution
 We are going to use pre-aligned reads against the human reference genome hg38 in CRAM format. We download 3 samples from 1000G.
 
 ```shell
+cd haplotype_deconvolution
 mkdir -p sequencing_reads
 cd sequencing_reads
 
@@ -36,7 +37,8 @@ cd ..
 Since we have sequencing reads in CRAM format, a reference genome is needed to fetch reads from the original alignments:
 
 ```shell
-mkdir reference
+cd haplotype_deconvolution
+mkdir -p reference
 cd reference
 
 wget ftp://ftp.1000genomes.ebi.ac.uk/vol1/ftp/technical/reference/GRCh38_reference_genome/GRCh38_full_analysis_set_plus_decoy_hla.fa
@@ -50,7 +52,8 @@ cd ..
 We will use year 1 assemblies from the Human Pangenome Reference Consortium. For simplicity, we will download the `PGGB` pangenome graph of chromosome 6 and get the contigs in FASTA format with `ODGI`:
 
 ```shell
-mkdir pangenome
+cd haplotype_deconvolution
+mkdir -p pangenome
 cd pangenome
 
 # Download chromosome 6 pangenome graph
@@ -68,7 +71,8 @@ cd ..
 We will genotype samples the C4 region. For that, we need to find the corresponding region on all the assemblies in the pangenome. As easy way is to first, we need to align the pangenome against the reference:
 
 ```shell
-mkdir wfmash
+cd haplotype_deconvolution
+mkdir -p wfmash
 
 wfmash \
     reference/GRCh38_full_analysis_set_plus_decoy_hla.fa pangenome/chr6.pan.fa \
@@ -86,7 +90,8 @@ module load impg
 # Download BED file containing the C4 region coordinates on hg38's chromosome 6
 wget https://raw.githubusercontent.com/pangenome/HumanPangenomeBYOD2024/refs/heads/main/data/hap-deconv.region-of-interest.bed
 
-mkdir impg
+cd haplotype_deconvolution
+mkdir -p impg
 
 impg \
     -p wfmash/pangenome_to_reference.paf \
@@ -113,6 +118,7 @@ samtools faidx impg/extracted.fasta
 Now we build a C4 region pangenome graph with `PGGB`:
 
 ```shell
+cd haplotype_deconvolution
 mkdir -p pggb
 
 pggb -i impg/extracted.fasta \
@@ -128,6 +134,7 @@ mv pggb/*smooth.final.og pggb/final.og
 Let's index the C4 region pangenome and align sequencing reads to it with `BWA MEM`:
 
 ```shell
+cd haplotype_deconvolution
 mkdir -p alignment
 
 bwa-mem2 index impg/extracted.fasta
@@ -154,7 +161,8 @@ done
 Inject the pangenome alignments into the pangenome graph:
 
 ```shell
-mkdir odgi
+cd haplotype_deconvolution
+mkdir -p odgi
 
 odgi view \
     -i odgi/chopped.og \
@@ -210,7 +218,8 @@ done
 **IMPORTANT**: currently compatible with `cosigt` v0.1.0 (commit `92622f6c095a1b43b0e13fef2893c74b9bfee887`).
 
 ```shell
-mkdir cosigt
+cd haplotype_deconvolution
+mkdir -p cosigt
 
 ls sequencing_reads/*cram | while read CRAM; do
     echo $CRAM
