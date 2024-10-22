@@ -141,6 +141,8 @@ mkdir -p alignment
 
 bwa-mem2 index impg/extracted.fasta
 
+module load cosigt
+
 ls sequencing_reads/*cram | while read CRAM; do
     echo $CRAM
 
