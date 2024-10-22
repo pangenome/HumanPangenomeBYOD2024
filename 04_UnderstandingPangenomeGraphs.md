@@ -131,7 +131,13 @@ Find C4 coordinates:
       bedtools sort | bedtools merge -d 15000 | bedtools slop -l 10000 -r 20000 -g hg38.chrom.sizes |
       sed 's/chr6/grch38#chr6/g' > hg38.ncbiRefSeq.C4.coordinates.bed
 
-Extract the C4 locus:
+Let's break this down.
+First, we got hg38 (GRCh38) genome annotations in GTF format from UCSC.
+We then apply some command line filters to pick up the records for genes C4A and C4B, then generate a BED file (`cut -f 1,4,5`), and sort this.
+Finally, we merge annotations that are within 15kbp (`bedtools merge -b 15000`) of each other, so that our target region is as contiguous as possible.
+If you repeat this process for a different locus or set of genes, it is very likely you'll need to tweak this distance and possibly modify the way you extract the coordinates from the GTF.
+
+Now let's extract the C4 locus:
 
     DIR_BASE=/cbio/projects/037/$USER
     cd $DIR_BASE/understanding_pan_graphs
@@ -209,6 +215,16 @@ By embedding gene annotations into the graph as paths, we align them with all ot
 
 We start with gene annotations against the GRCh38 reference.
 Our annotations are against the full `grch38#chr6`, in `test/chr6.C4.bed`.
+These have been extracted from gencode annotations in a process like this:
+
+    zgrep 'C4A\|C4B' gencode.v47.basic.annotation.gff3.gz |
+    awk '$1 == "chr6" && $3 == "gene"' |
+    grep gene_type=protein |
+    awk -F'\t' '{split($9,a,";"); for(i in a) if(a[i]~/gene_name/) {split(a[i],b,"="); name=b[2]} print $1"\t"$4"\t"$5"\t"name}'
+    
+This may be helpful if you're planning on running the process described here over other genes.
+*However*, the `test/chr6.C4.bed` file also includes some manually added annotations for the HERV insertions in the long forms of C4A and C4B found in the reference.
+
 Take a look at the first column in the annotation file
 
     DIR_BASE=/cbio/projects/037/$USER
