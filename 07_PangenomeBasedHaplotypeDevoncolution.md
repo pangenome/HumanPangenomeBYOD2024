@@ -80,6 +80,9 @@ wfmash \
 and then project the alignments of the C4 region by using `IMPG`:
 
 ```shell
+# load impg module
+module load impg
+
 # Download BED file containing the C4 region coordinates on hg38's chromosome 6
 wget https://raw.githubusercontent.com/pangenome/HumanPangenomeBYOD2024/refs/heads/main/data/hap-deconv.region-of-interest.bed
 

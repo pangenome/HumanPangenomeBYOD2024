@@ -25,7 +25,16 @@ Create a directory to work on for this tutorial:
 	mkdir human_pangenome_graphs
 	cd human_pangenome_graphs
 
-Download 2 human references and 4 diploid human *de novo* assemblies from the Human Pangenome Reference Consortium (HPRC) data:
+If you're doing this at the BYOD workshop:
+
+    DIR_BASE=/cbio/projects/037/$USER
+    ln -s /cbio/projects/037/erikg/human_pangenome_graphs .
+    
+Index the assemblies:
+
+    ls *genbank.fa | while read f; do echo $f; samtools faidx $f; done
+
+(*ONLY If you're doing this on your own:*) Download 2 human references and 4 diploid human *de novo* assemblies from the Human Pangenome Reference Consortium (HPRC) data:
 
     DIR_BASE=/cbio/projects/037/$USER
     mkdir -p $DIR_BASE/human_pangenome_graphs/assemblies
@@ -42,7 +51,7 @@ Download 2 human references and 4 diploid human *de novo* assemblies from the Hu
     wget -c https://s3-us-west-2.amazonaws.com/human-pangenomics/working/HPRC_PLUS/HG00733/assemblies/year1_f1_assembly_v2_genbank/HG00733.paternal.f1_assembly_v2_genbank.fa.gz
     wget -c https://s3-us-west-2.amazonaws.com/human-pangenomics/working/HPRC_PLUS/HG00733/assemblies/year1_f1_assembly_v2_genbank/HG00733.maternal.f1_assembly_v2_genbank.fa.gz
 
-Decompress and index the assemblies:
+(*ONLY if you just downloaded them:*) Decompress and index the assemblies:
 
     DIR_BASE=/cbio/projects/037/$USER
     cd $DIR_BASE/human_pangenome_graphs/assemblies
