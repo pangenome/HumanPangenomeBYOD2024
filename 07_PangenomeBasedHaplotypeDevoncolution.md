@@ -141,8 +141,6 @@ mkdir -p alignment
 
 bwa-mem2 index impg/extracted.fasta
 
-module load cosigt
-
 ls sequencing_reads/*cram | while read CRAM; do
     echo $CRAM
 
@@ -224,13 +222,12 @@ done
 ```shell
 cd /cbio/projects/037/$USER/haplotype_deconvolution
 mkdir -p cosigt
+module load cosigt
 
 ls sequencing_reads/*cram | while read CRAM; do
     echo $CRAM
 
     NAME=$(basename $CRAM .cram)
-
-    module load cosigt
 
     cosigt \
     -p odgi/paths_matrix.tsv.gz \
