@@ -282,6 +282,10 @@ It can be helpful to extract a VCF representing variation.
 For this process to work, you'll want to have your paths named using PanSN format, and to pick an appropriate reference sequence.
 You can try multiple reference sequences to see how the representation changes.
 
+    DIR_BASE=/cbio/projects/037/$USER
+    cd $DIR_BASE/understanding_pan_graphs
+    
+    odgi view -i $DIR_BASE/understanding_pan_graphs/chr6.pan.C4.sorted.og -g >chr6.c4.gfa
     vg deconstruct -P chm13 -H "#" -e -a -t 16 chr6.c4.gfa >chr6.c4.chm13.vcf
 
 When working with large graphs, you should set the `TEMPDIR` environmental variable to a suitable directory such as a local SSD or ramdisk like `/dev/shm` (assuming you have enough memory).
