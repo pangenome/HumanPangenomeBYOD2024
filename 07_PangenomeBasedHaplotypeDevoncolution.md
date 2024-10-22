@@ -5,7 +5,7 @@
 Create a folder for the upcoming analysis:
 
 ```shell
-cd </your/favorite/directory>
+cd /cbio/projects/037/$USER
 mkdir -p haplotype_deconvolution
 cd haplotype_deconvolution
 ```
