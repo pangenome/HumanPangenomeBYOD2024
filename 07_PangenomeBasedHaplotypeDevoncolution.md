@@ -152,6 +152,21 @@ pggb -i impg/extracted.fasta -o pggb -t 16 -n 36
 mv pggb/*smooth.final.og pggb/final.og
 ```
 
+Let's chop the graph and get a haplotype coverage matrix:
+
+```shell
+odgi chop \
+    -i pggb/final.og \
+    -c 32 \
+    -o odgi/chopped.og
+
+odgi paths \
+    -i odgi/chopped.og \
+    -H | \
+    cut -f 1,4- | \
+    gzip > odgi/paths_matrix.tsv.gz
+```
+
 ## Reads-vs-graph alignment
 
 Let's index the C4 region pangenome and align sequencing reads to it with `BWA MEM`:
@@ -206,22 +221,7 @@ done
 
 ## Matrixes
 
-Let's chop the graph and get a haplotype coverage matrix:
-
-```shell
-odgi chop \
-    -i pggb/final.og \
-    -c 32 \
-    -o odgi/chopped.og
-
-odgi paths \
-    -i odgi/chopped.og \
-    -H | \
-    cut -f 1,4- | \
-    gzip > odgi/paths_matrix.tsv.gz
-```
-
-Let's get the sample coverage vectors too:
+Let's get the sample coverage vectors:
 
 ```shell
 ls sequencing_reads/*cram | while read CRAM; do
