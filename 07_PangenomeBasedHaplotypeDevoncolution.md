@@ -246,6 +246,15 @@ cd /cbio/projects/037/$USER/haplotype_deconvolution
 mkdir -p cosigt
 module load cosigt
 
+# First generate the similarity matrix using odgi
+odgi similarity \
+    -i odgi/chopped.og \
+    > odgi/similarity.tsv
+
+# Download the clustering script from cosigt repository
+wget https://raw.githubusercontent.com/davidebolo1993/cosigt/16b18815cf9fdfcbf2afbf588a02740c27941ee3/cosigt_smk/workflow/scripts/cluster.r
+chmod +x cluster.r
+
 ls sequencing_reads/*cram | while read CRAM; do
     echo $CRAM
 
