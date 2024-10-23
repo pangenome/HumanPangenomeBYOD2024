@@ -10,10 +10,6 @@ mkdir -p haplotype_deconvolution
 cd /cbio/projects/037/$USER/haplotype_deconvolution
 ```
 
-## Sample reads
-
-We are going to use pre-aligned reads against the human reference genome hg38 in CRAM format. We download 3 samples from 1000G.
-
 Quicker! If at the workshop, just use a symlink to get the data (sequencing reads, reference, and pangenome for chr6) in context:
 
 ```shell
@@ -24,6 +20,10 @@ ln -s /cbio/projects/037/erikg/haplotype_deconvolution/pangenome .
 ```
 
 (and you can skip the downloads)
+
+## Sample reads
+
+We are going to use pre-aligned reads against the human reference genome hg38 in CRAM format. We download 3 samples from 1000G.
 
 ```shell
 cd /cbio/projects/037/$USER/haplotype_deconvolution
