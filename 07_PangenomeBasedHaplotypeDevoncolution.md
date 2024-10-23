@@ -252,6 +252,7 @@ ls sequencing_reads/*cram | while read CRAM; do
     NAME=$(basename $CRAM .cram)
 
     cosigt \
+    -i $NAME \
     -p odgi/paths_matrix.tsv.gz \
     -g alignment/$NAME.coverage.gafpack.gz \
     -o cosigt
