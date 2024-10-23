@@ -257,9 +257,17 @@ chmod +x cluster.r
 
 module load R
 
+# First install required R packages in user's home directory
+R --vanilla <<EOF
+.libPaths(c("~/R/library", .libPaths()))
+dir.create("~/R/library", recursive=TRUE, showWarnings=FALSE)
+install.packages(c("reshape2", "NbClust", "rjson", "dendextend", "ggplot2", "data.table"), 
+                lib="~/R/library",
+                repos="https://cloud.r-project.org")
+EOF
+
 # Run the clustering script to generate the JSON
 ./cluster.r odgi/similarity.tsv cosigt/clusters.json
-
 
 ls sequencing_reads/*cram | while read CRAM; do
     echo $CRAM
