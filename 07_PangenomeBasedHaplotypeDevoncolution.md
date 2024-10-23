@@ -27,6 +27,7 @@ ALSO, we need to install gfainject and gafpack.
 module load rust
 cargo install --git https://github.com/pangenome/gafpack
 cargo install --git https://github.com/chfi/gfainject
+export PATH=~/.cargo/bin/:$PATH
 ```
 
 ## Sample reads
