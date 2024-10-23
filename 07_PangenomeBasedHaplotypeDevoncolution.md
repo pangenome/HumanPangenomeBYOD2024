@@ -162,7 +162,7 @@ Let's index the C4 region pangenome and align sequencing reads to it with `BWA M
 cd /cbio/projects/037/$USER/haplotype_deconvolution
 mkdir -p alignment
 
-bwa-mem2 index impg/extracted.fasta
+bwa index impg/extracted.fasta
 
 ls sequencing_reads/*cram | while read CRAM; do
     echo $CRAM
@@ -177,7 +177,7 @@ ls sequencing_reads/*cram | while read CRAM; do
         -b \
         $CRAM | \
         samtools fasta | \
-            bwa-mem2 mem -t 14 impg/extracted.fasta - | \
+            bwa mem -t 14 impg/extracted.fasta - | \
             samtools view -b -F 4 -@ 2 - \
             > alignment/$NAME.reads_vs_extracted.bam
 done
