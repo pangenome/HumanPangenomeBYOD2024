@@ -14,6 +14,17 @@ cd /cbio/projects/037/$USER/haplotype_deconvolution
 
 We are going to use pre-aligned reads against the human reference genome hg38 in CRAM format. We download 3 samples from 1000G.
 
+Quicker! If at the workshop, just use a symlink to get the data (sequencing reads, reference, and pangenome for chr6) in context:
+
+```shell
+cd /cbio/projects/037/$USER/haplotype_deconvolution
+ln -s /cbio/projects/037/erikg/haplotype_deconvolution/sequencing_reads .
+ln -s /cbio/projects/037/erikg/haplotype_deconvolution/reference .
+ln -s /cbio/projects/037/erikg/haplotype_deconvolution/pangenome .
+```
+
+(and you can skip the downloads)
+
 ```shell
 cd /cbio/projects/037/$USER/haplotype_deconvolution
 mkdir -p sequencing_reads
@@ -70,6 +81,8 @@ cd ..
 ```
 
 ## Region of interest pangenome
+
+RESTART HERE.
 
 We will genotype samples the C4 region. For that, we need to find the corresponding region on all the assemblies in the pangenome. As easy way is to first, we need to align the pangenome against the reference:
 
