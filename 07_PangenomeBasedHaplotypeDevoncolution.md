@@ -266,8 +266,15 @@ install.packages(c("reshape2", "NbClust", "rjson", "dendextend", "ggplot2", "dat
                 repos="https://cloud.r-project.org")
 EOF
 
+# Create a wrapper script that sets the library path before running cluster.r
+cat > run_cluster.r <<'EOF'
+#!/usr/bin/env Rscript
+.libPaths(c("~/R/library", .libPaths()))
+source("cluster.r")
+EOF
+
 # Run the clustering script to generate the JSON
-./cluster.r odgi/similarity.tsv cosigt/clusters.json
+./run_cluster.r odgi/similarity.tsv cosigt/clusters.json
 
 ls sequencing_reads/*cram | while read CRAM; do
     echo $CRAM
