@@ -277,6 +277,7 @@ cat > run_cluster.r <<'EOF'
 .libPaths(c("~/R/library", .libPaths()))
 source("cluster.r")
 EOF
+chmod +x run_cluster.r
 
 # Run the clustering script to generate the JSON
 ./run_cluster.r odgi/similarity.tsv cosigt/clusters.json
