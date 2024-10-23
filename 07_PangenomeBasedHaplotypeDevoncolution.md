@@ -140,15 +140,13 @@ samtools faidx \
 samtools faidx impg/extracted.fasta
 ```
 
-Now we build a C4 region pangenome graph with `PGGB`:
+Now we build a C4 region pangenome graph with `PGGB` (n.b. there are 36 haplotypes):
 
 ```shell
 cd /cbio/projects/037/$USER/haplotype_deconvolution
 mkdir -p pggb
 
-pggb -i impg/extracted.fasta \
-    -o pggb \
-    -t 16
+pggb -i impg/extracted.fasta -o pggb -t 16 -n 36
 
 # Rename the final ODGI graph in a more human-friendly way
 mv pggb/*smooth.final.og pggb/final.og
