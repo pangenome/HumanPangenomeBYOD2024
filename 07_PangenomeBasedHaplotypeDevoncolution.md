@@ -255,6 +255,12 @@ odgi similarity \
 wget https://raw.githubusercontent.com/davidebolo1993/cosigt/16b18815cf9fdfcbf2afbf588a02740c27941ee3/cosigt_smk/workflow/scripts/cluster.r
 chmod +x cluster.r
 
+module load R
+
+# Run the clustering script to generate the JSON
+./cluster.r odgi/similarity.tsv cosigt/clusters.json
+
+
 ls sequencing_reads/*cram | while read CRAM; do
     echo $CRAM
 
