@@ -242,6 +242,22 @@ done
 **IMPORTANT**: currently compatible with `cosigt` v0.1.0 (commit `92622f6c095a1b43b0e13fef2893c74b9bfee887`).
 
 ```shell
+# setup
+module load R
+
+# First install required R packages in user's home directory
+R --vanilla <<EOF
+.libPaths(c("~/R/library", .libPaths()))
+dir.create("~/R/library", recursive=TRUE, showWarnings=FALSE)
+install.packages(c("reshape2", "NbClust", "rjson", "dendextend", "ggplot2", "data.table"), 
+                lib="~/R/library",
+                repos="https://cloud.r-project.org")
+EOF
+```
+
+Now the actual genotyping step.
+
+```shell
 cd /cbio/projects/037/$USER/haplotype_deconvolution
 mkdir -p cosigt
 module load cosigt
@@ -254,17 +270,6 @@ odgi similarity \
 # Download the clustering script from cosigt repository
 wget https://raw.githubusercontent.com/davidebolo1993/cosigt/16b18815cf9fdfcbf2afbf588a02740c27941ee3/cosigt_smk/workflow/scripts/cluster.r
 chmod +x cluster.r
-
-module load R
-
-# First install required R packages in user's home directory
-R --vanilla <<EOF
-.libPaths(c("~/R/library", .libPaths()))
-dir.create("~/R/library", recursive=TRUE, showWarnings=FALSE)
-install.packages(c("reshape2", "NbClust", "rjson", "dendextend", "ggplot2", "data.table"), 
-                lib="~/R/library",
-                repos="https://cloud.r-project.org")
-EOF
 
 # Create a wrapper script that sets the library path before running cluster.r
 cat > run_cluster.r <<'EOF'
