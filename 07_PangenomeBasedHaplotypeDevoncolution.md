@@ -21,6 +21,14 @@ ln -s /cbio/projects/037/erikg/haplotype_deconvolution/pangenome .
 
 (and you can skip the downloads)
 
+ALSO, we need to install gfainject and gafpack.
+
+```shell
+module load rust
+cargo install --git https://github.com/pangenome/gafpack
+cargo install --git https://github.com/chfi/gfainject
+```
+
 ## Sample reads
 
 We are going to use pre-aligned reads against the human reference genome hg38 in CRAM format. We download 3 samples from 1000G.
