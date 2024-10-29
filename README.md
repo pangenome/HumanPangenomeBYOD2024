@@ -22,3 +22,6 @@ The event was sponsored by [eLwazi](https://elwazi.org/)
 * [Short read mapping and variant calling](05_ShortReadMappingVariantCalling.md)
 * [Hacking with our data](06_HackingWithOurData.md)
 * [Haplotype deconvolution](07_PangenomeBasedHaplotypeDevoncolution.md)
+
+## Previous editions
+- 2023 - https://github.com/AndreaGuarracino/ReferenceGraphPangenomeDataAnalysisHackathon2023
